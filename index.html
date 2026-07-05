@@ -1,0 +1,626 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeonPump | Skip Leg Day. We Won't Tell.</title>
+    <!-- Importing Google Fonts for that aggressive aesthetic -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        /* =========================================
+           NEON PUMP GLOBAL STYLES (MIAMI VICE VIBES)
+           ========================================= */
+        :root {
+            --bg-color: #121212;
+            --panel-bg: #1a1a1a;
+            --neon-pink: #FF107A;
+            --neon-cyan: #00FFFF;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 40px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .neon-pink-text {
+            color: var(--neon-pink);
+            text-shadow: 0 0 8px rgba(255, 16, 122, 0.6);
+        }
+
+        .neon-cyan-text {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+        }
+
+        /* Layout Containers */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            border-bottom: 2px solid var(--neon-pink);
+            box-shadow: 0 4px 15px rgba(255, 16, 122, 0.3);
+            margin-bottom: 40px;
+            background: linear-gradient(180deg, #111 0%, var(--bg-color) 100%);
+        }
+
+        header h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        header p.tagline {
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .week-indicator {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .week-indicator h2 {
+            font-size: 2rem;
+            display: inline-block;
+            padding: 10px 20px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 4px;
+            box-shadow: 0 0 10px var(--neon-cyan), inset 0 0 10px rgba(0,255,255,0.2);
+        }
+
+        /* Grid for the 5-day split */
+        .workout-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        @media (min-width: 768px) {
+            .workout-grid {
+                grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            }
+        }
+
+        /* The Panels */
+        .day-panel {
+            background-color: var(--panel-bg);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .day-panel:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .day-header {
+            font-size: 2.2rem;
+            text-align: center;
+            border-bottom: 1px dashed #444;
+            padding-bottom: 15px;
+        }
+
+        .routine-section {
+            background: rgba(0,0,0,0.4);
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid;
+        }
+
+        .routine-section.am {
+            border-left-color: var(--neon-cyan);
+        }
+
+        .routine-section.pm {
+            border-left-color: var(--neon-pink);
+        }
+
+        .routine-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .routine-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .exercise-list {
+            list-style: none;
+        }
+
+        .exercise-item {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #222;
+        }
+
+        .exercise-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .exercise-name {
+            font-weight: 600;
+            color: #fff;
+            display: block;
+        }
+
+        .exercise-reps {
+            color: var(--neon-cyan);
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .pm .exercise-reps {
+            color: var(--neon-pink);
+        }
+
+        /* Supp Stack Section */
+        .supp-stack {
+            background-color: var(--panel-bg);
+            border: 2px solid var(--neon-pink);
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(255, 16, 122, 0.2);
+            margin-bottom: 60px;
+        }
+
+        .supp-stack h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .supp-stack p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+
+        .supp-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: #fff;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            padding: 12px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 700;
+        }
+
+        .btn-pink {
+            border: 2px solid var(--neon-pink);
+            box-shadow: 0 0 10px rgba(255, 16, 122, 0.3);
+        }
+
+        .btn-pink:hover {
+            background: var(--neon-pink);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-pink);
+        }
+
+        .btn-cyan {
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .btn-cyan:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        /* Footer / Disclaimer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #333;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        footer h4 {
+            color: var(--neon-pink);
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="neon-pink-text">Neon<span class="neon-cyan-text">Pump</span></h1>
+        <p class="tagline">Skip Leg Day. We Won't Tell.</p>
+    </header>
+
+    <main>
+        <section class="week-indicator">
+            <h2 id="week-title" class="neon-cyan-text">Loading the Gains...</h2>
+        </section>
+
+        <!-- Dynamic Workout Content will be injected here -->
+        <div id="workout-container" class="workout-grid"></div>
+
+        <section class="supp-stack">
+            <h2 class="neon-pink-text">The Supp Stack</h2>
+            <p>If you're not choking down these chemicals, you're literally choosing to remain small forever. Stop being average. Click these affiliate links so I can afford a nicer shaker bottle.</p>
+            <div class="supp-buttons">
+                <a href="#" class="btn btn-cyan" onclick="alert('Bro, chill. This is a placeholder. Go drink some water.'); return false;">Buy NeonPump Pre-Workout</a>
+                <a href="#" class="btn btn-pink" onclick="alert('Bro, chill. This is a placeholder. Go eat a chicken breast.'); return false;">Massive Mass Gainer</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <h4>⚠️ HILARIOUS YET LEGALLY BINDING DISCLAIMER ⚠️</h4>
+        <p>Do Not Sue Us. We are not doctors, physical therapists, or anyone with actual medical credentials. We are just dudes trying to look massive in medium-sized t-shirts. Lifting heavy things while reading satirical text on a glowing screen is inherently dangerous. If you snap your sh*t up because your Anterior Chain failed you during an ego-lift, that is 100% on you. By reading this site, you agree to not hold NeonPump liable for any torn pecs, bruised egos, or absolute lack of leg development.</p>
+    </footer>
+
+    <script>
+        /* =========================================
+           THE BRAINS OF THE OPERATION (BRO-LOGIC)
+           ========================================= */
+
+        // 1. The Mock JSON Data. Two distinct weeks of pure, unadulterated vanity.
+        const workoutsData = [
+            {
+                // WEEK A
+                weekName: "Phase 1: The Anterior Awakening",
+                days: [
+                    {
+                        day: "Monday",
+                        am: {
+                            title: "Tactical Chassis Alignment",
+                            desc: "Oil up the hinges so your lower back doesn't shatter when you bench.",
+                            exercises: [
+                                { name: "Hamstring Un-f*cker (Downward Dog)", reps: "3 mins total" },
+                                { name: "Glute-Wakeup Slaps (Glute Bridges)", reps: "3 x 15 (Squeeze 'em!)" },
+                                { name: "Ankle Greasers (Calf/Ankle rocks)", reps: "2 x 20 per side" }
+                            ]
+                        },
+                        pm: {
+                            title: "The Glory Lifts: Chest Day (Obviously)",
+                            desc: "Time to build the Mirror Muscles. We want that shelf.",
+                            exercises: [
+                                { name: "Upper Chest Shelf Builders (Incline DB Press)", reps: "4 x 8-10" },
+                                { name: "Pec Dec Flyes (Hug the imaginary barrel)", reps: "3 x 12-15" },
+                                { name: "Chest Poppers (Face Pulls) *Crucial*", reps: "3 x 15-20 (Don't round your shoulders like a caveman)" },
+                                { name: "Bicep Peak Mount Everests (Preacher Curls)", reps: "4 x 10" }
+                            ]
+                        }
+                    },
+                    {
+                        day: "Tuesday",
+                        am: {
+                            title: "Tactical Chassis Alignment",
+                            desc: "Undo the damage from sleeping on your side like a shrimp.",
+                            exercises: [
+                                { name: "Spinal De-Crunchers (Cat-Cow)", reps: "20 slow reps" },
+                                { name: "Hip-Flexor Un-Jammers (Lunge Stretches)", reps: "2 mins per leg" },
+                                { name: "Lower Back Armor (Bird-Dog)", reps: "3 x 10 per side" }
+                            ]
+                        },
+                        pm: {
+                            title: "The Glory Lifts: Shoulder Boulders",
+                            desc: "If you have to turn sideways to fit through a door, you're doing it right.",
+                            exercises: [
+                                { name: "Seated DB Press (Heavy, grunting required)", reps: "4 x 8" },
+                                { name: "Side Delt Spammers (Lateral Raises)", reps: "5 x 15 (Burn it down)" },
+                                { name: "Posture Reinforcements (Seated Cable Rows)", reps: "4 x 12 (Pinch the shoulder blades! Anterior Chain needs balance!)" },
+                                { name: "Tricep Horseshoe Carvers (Rope Pushdowns)", reps: "4 x 12-15" }
+                            ]
+                        }
+                    },
+                    {
+                        day: "Wednesday",
+                        am: {
+                            title: "Tactical Chassis Alignment",
+                            desc: "Mid-week maintenance. Your hips are tighter than a jar of pickles.",
+                            exercises: [
+                                { name: "The Groin Rescuer (Butterfly Stretch)", reps: "3 mins" },
+                                { name: "Pre-Pump Thoracic Twists", reps: "2 x 15 per side" },
+                                { name: "Glute Ignition Sequence (Clamshells)", reps: "3 x 15 per side" }
+                            ]
+                        },
+                        pm: {
+                            title: "The Glory Lifts: The Arm Farm",
+                            desc: "Sleeves are a privilege, not a right. Earn them.",
+                            exercises: [
+                                { name: "Barbell Cheat Curls", reps: "4 x 8 (Slight momentum is bro-approved)" },
+                                { name: "Skullcrushers (Don't actually crush it)", reps: "4 x 10" },
+                                { name: "Hammer Curls for Forearm Veins", reps: "3 x 12" },
+                                { name: "Upper Back Sneak-Attack (Lat Pulldowns)", reps: "3 x 12 (Wide grip, puff the chest out)" }
+                            ]
+                        }
+                    },
+                    {
+                        day: "Thursday",
+                        am: {
+                            title: "Tactical Chassis Alignment",
+                            desc: "Ankle and hip focus. We don't squat, but we still need to walk to the bench.",
+                            exercises: [
+                                { name: "Deep Squat Hold (Just for stretching, relax)", reps: "2 x 1 minute" },
+                                { name: "Hamstring Un-f*cker Vol. 2 (Toe Touches)", reps: "3 x 30 secs" },
+                                { name: "Lumbar Savior (Knees to chest stretch)", reps: "2 mins" }
+                            ]
+                        },
+                        pm: {
+                            title: "The Glory Lifts: Chest & Shoulders Part 2",
+                            desc: "You didn't think we were only doing chest once a week, did you?",
+                            exercises: [
+                                { name: "Flat Bench (Ask for a spot, assert dominance)", reps: "5 x 5" },
+                                { name: "Front Delt Destroyers (Front Raises)", reps: "3 x 12" },
+                                { name: "Posture Reinforcements (Reverse Pec Dec)", reps: "4 x 15 (Keep that chest popping)" },
+                                { name: "Cable Crossover (Squeeze at the middle)", reps: "3 x 15" }
+                            ]
+                        }
+                    },
+                    {
+                        day: "Friday",
+                        am: {
+                            title: "Tactical Chassis Alignment",
+                            desc: "Full chassis reset before the weekend. Look good, feel passable.",
+                            exercises: [
+                                { name: "World's Greatest Stretch (Bro Edition)", reps: "5 per side" },
+                                { name: "Glute-Wakeup Slaps (Glute Bridges)", reps: "3 x 15" },
+                                { name: "Neck & Trap De-Tensioners", reps: "2 mins total" }
+                            ]
+                        },
+                        pm: {
+                            title: "The Glory Lifts: The Friday Night Pump",
+                            desc: "Everything that shows in a cut-off tee. Zero lower body.",
+                            exercises: [
+                                { name: "Bicep Peak Mount Everests (DB Curls)", reps: "3 x 10" },
+                                { name: "Lateral Raise Drop Sets", reps: "3 sets to failure" },
+                                { name: "Chest Poppers (Face Pulls)", reps: "3 x 20 (Keep the posture immaculate)" },
+                                { name: "Push-ups to failure (Chasing the pump)", reps: "1 set, max reps" }
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                // WEEK B
+                weekName: "Phase 2: The Neon Swell",
+                days: [
+                    {
+                        day: "Monday",
+                        am: {
+                            title: "Tactical Chassis Alignment",
+                            desc: "Greasing the groove so you don't look stiff in the club.",
+                            exercises: [
+                                { name: "Pigeon Pose (Glute Un-f*cker)", reps: "2 mins per leg" },
+                                { name: "Ankle Mobility Sweeps", reps: "2 x 15 per side" },
+                                { name: "Spinal De-Crunchers (Cat-Cow)", reps: "20 slow reps" }
+                            ]
+                        },
+                        pm: {
+                            title: "The Glory Lifts: Chest Extravaganza",
+                            desc: "If they can't balance a drink on your upper chest, do it again.",
+                            exercises: [
+                                { name: "Guillotine Press (Smith Machine)", reps: "4 x 10" },
+                                { name: "Incline DB Flyes", reps: "3 x 12" },
+                                { name: "Posture Reinforcements (DB Rows)", reps: "3 x 10 per arm (Anti-caveman tech)" },
+                                { name: "Tricep Kickbacks", reps: "3 x 15" }
+                            ]
+                        }
+                    },
+                    {
+                        day: "Tuesday",
+                        am: {
+                            title: "Tactical Chassis Alignment",
+                            desc: "Your shoulders are tight from yesterday. Let's fix the chassis.",
+                            exercises: [
+                                { name: "Shoulder Dislocates (with broomstick)", reps: "2 x 15" },
+                                { name: "Lower Back Armor (Bird-Dog)", reps: "3 x 10 per side" },
+                                { name: "Hip-Flexor Un-Jammers", reps: "2 mins per leg" }
+                            ]
+                        },
+                        pm: {
+                            title: "The Glory Lifts: Deltoid Domination",
+                            desc: "Looking massive requires 3D shoulders.",
+                            exercises: [
+                                { name: "Arnold Press", reps: "4 x 8-10" },
+                                { name: "Upright Rows (Wide grip)", reps: "3 x 12" },
+                                { name: "Chest Poppers (Band Pull-Aparts)", reps: "4 x 20 (Mandatory for posture)" },
+                                { name: "Cable Curls", reps: "4 x 15" }
+                            ]
+                        }
+                    },
+                    {
+                        day: "Wednesday",
+                        am: {
+                            title: "Tactical Chassis Alignment",
+                            desc: "Core and hips. Gotta keep the midsection functional.",
+                            exercises: [
+                                { name: "Dead Bugs (Brain-muscle connection)", reps: "3 x 10 per side" },
+                                { name: "Glute Ignition Sequence (Bridges)", reps: "3 x 20" },
+                                { name: "Hamstring Un-f*cker (Downward Dog)", reps: "2 mins" }
+                            ]
+                        },
+                        pm: {
+                            title: "The Glory Lifts: Armageddon",
+                            desc: "Because nobody ever asked 'how much do you calf raise?'",
+                            exercises: [
+                                { name: "Close Grip Bench Press", reps: "4 x 8" },
+                                { name: "Incline DB Curls", reps: "4 x 10" },
+                                { name: "Overhead Tricep Extensions", reps: "3 x 12" },
+                                { name: "Upper Back Sneak-Attack (Straight Arm Pulldowns)", reps: "3 x 15" }
+                            ]
+                        }
+                    },
+                    {
+                        day: "Thursday",
+                        am: {
+                            title: "Tactical Chassis Alignment",
+                            desc: "Spine check. If it cracks, it's working.",
+                            exercises: [
+                                { name: "Pre-Pump Thoracic Twists", reps: "2 x 15 per side" },
+                                { name: "The Groin Rescuer (Butterfly)", reps: "2 mins" },
+                                { name: "Ankle Greasers", reps: "2 x 20 per side" }
+                            ]
+                        },
+                        pm: {
+                            title: "The Glory Lifts: The Upper Shelf",
+                            desc: "Hitting chest from the top down.",
+                            exercises: [
+                                { name: "Incline Barbell Press", reps: "4 x 8" },
+                                { name: "Low-to-High Cable Flyes", reps: "3 x 15" },
+                                { name: "Posture Reinforcements (T-Bar Row)", reps: "3 x 10 (Keep chest up!)" },
+                                { name: "Spider Curls", reps: "3 x 12" }
+                            ]
+                        }
+                    },
+                    {
+                        day: "Friday",
+                        am: {
+                            title: "Tactical Chassis Alignment",
+                            desc: "Final prep for the weekend. Make sure you can turn your neck.",
+                            exercises: [
+                                { name: "Neck & Trap De-Tensioners", reps: "3 mins" },
+                                { name: "World's Greatest Stretch", reps: "5 per side" },
+                                { name: "Glute-Wakeup Slaps (Clamshells)", reps: "2 x 15 per side" }
+                            ]
+                        },
+                        pm: {
+                            title: "The Glory Lifts: Weekend Pump",
+                            desc: "High volume, chasing the pump, looking vascular.",
+                            exercises: [
+                                { name: "Machine Chest Press", reps: "3 x 15-20" },
+                                { name: "Lateral Raises (Machine or Cable)", reps: "4 x 15" },
+                                { name: "Chest Poppers (Face Pulls)", reps: "3 x 20 (Lock in that posture)" },
+                                { name: "Alternating DB Curls", reps: "3 x 12 per arm" }
+                            ]
+                        }
+                    }
+                ]
+            }
+        ];
+
+        // 2. Logic: Get Current Week Number (1-52)
+        function getWeekNumber(d) {
+            d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+            // Set to nearest Thursday: current date + 4 - current day number
+            d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+            var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+            // Calculate full weeks to nearest Thursday
+            var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+            return weekNo;
+        }
+
+        // 3. Inject Data into DOM
+        function renderWorkout() {
+            const currentWeek = getWeekNumber(new Date());
+            // Modulo operator to cycle through the mock JSON array (e.g., 2 weeks)
+            const workoutIndex = currentWeek % workoutsData.length;
+            const currentPlan = workoutsData[workoutIndex];
+
+            // Update Header with Week Info
+            document.getElementById('week-title').innerText = `Week ${currentWeek} - ${currentPlan.weekName}`;
+
+            const container = document.getElementById('workout-container');
+            container.innerHTML = ''; // Clear loading text
+
+            // Loop through the 5 days and generate HTML
+            currentPlan.days.forEach(dayInfo => {
+                
+                // Helper function to build exercise list HTML
+                const buildExerciseHTML = (exercises) => {
+                    return exercises.map(ex => `
+                        <li class="exercise-item">
+                            <span class="exercise-name">${ex.name}</span>
+                            <span class="exercise-reps">${ex.reps}</span>
+                        </li>
+                    `).join('');
+                };
+
+                const dayCardHTML = `
+                    <div class="day-panel">
+                        <h3 class="day-header neon-cyan-text">${dayInfo.day}</h3>
+                        
+                        <div class="routine-section am">
+                            <h4 class="routine-title neon-cyan-text">☀️ ${dayInfo.am.title}</h4>
+                            <p class="routine-desc">"${dayInfo.am.desc}"</p>
+                            <ul class="exercise-list">
+                                ${buildExerciseHTML(dayInfo.am.exercises)}
+                            </ul>
+                        </div>
+
+                        <div class="routine-section pm">
+                            <h4 class="routine-title neon-pink-text">🌙 ${dayInfo.pm.title}</h4>
+                            <p class="routine-desc">"${dayInfo.pm.desc}"</p>
+                            <ul class="exercise-list">
+                                ${buildExerciseHTML(dayInfo.pm.exercises)}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+
+                container.innerHTML += dayCardHTML;
+            });
+        }
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            renderWorkout();
+        });
+
+    </script>
+</body>
+</html>
+
+```
