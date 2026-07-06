@@ -89,7 +89,7 @@
             margin: 0;
         }
 
-        /* Bro-Dictionary Tooltip CSS */
+        /* Exercise Items & Badges */
         li.exercise-item {
             background-color: #2a2a2a;
             margin-bottom: 10px;
@@ -98,15 +98,31 @@
             border-left: 4px solid var(--neon-pink);
             font-size: 1.1rem;
             font-weight: 700;
-            position: relative; /* Crucial for tooltip positioning */
+            position: relative; 
             cursor: pointer;
             transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         li.exercise-item:hover {
             background-color: #333;
         }
 
+        .rep-badge {
+            background-color: var(--electric-cyan);
+            color: var(--bg-color);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 900;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+            white-space: nowrap;
+            margin-left: 15px;
+        }
+
+        /* Bro-Dictionary Tooltip CSS */
         .bro-tooltip {
             visibility: hidden;
             width: 280px;
@@ -115,7 +131,7 @@
             text-align: center;
             border: 1px solid var(--electric-cyan);
             border-radius: 8px;
-            padding: 12px;
+            padding: 15px;
             position: absolute;
             z-index: 10;
             bottom: 110%;
@@ -126,8 +142,8 @@
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
             font-size: 0.9rem;
             font-weight: 400;
-            font-style: italic;
-            pointer-events: none; /* Prevents tooltip from interfering with hover */
+            line-height: 1.4;
+            pointer-events: none; 
         }
 
         .bro-tooltip::after {
@@ -141,6 +157,16 @@
             border-color: var(--electric-cyan) transparent transparent transparent;
         }
 
+        .macgyver-swap {
+            display: block;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #444;
+            color: var(--neon-pink);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
         li.exercise-item:hover .bro-tooltip,
         li.exercise-item:active .bro-tooltip {
             visibility: visible;
@@ -148,10 +174,37 @@
             bottom: 120%;
         }
 
+        /* Improvised Iron Section */
+        #improvised-iron {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            border-left: 4px solid var(--electric-cyan);
+            padding: 25px;
+            border-radius: 8px;
+        }
+
+        #improvised-iron h2 {
+            color: var(--electric-cyan);
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        #improvised-iron ul {
+            padding-left: 20px;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        #improvised-iron strong {
+            color: #fff;
+        }
+
         /* Supp Stack Section */
         #supp-stack {
             max-width: 800px;
-            margin: 60px auto;
+            margin: 40px auto 60px auto;
             text-align: center;
             background: linear-gradient(145deg, #1e1e1e, #121212);
             border: 2px solid var(--neon-pink);
@@ -205,11 +258,9 @@
             h1.logo { font-size: 2.5rem; }
             .day-card { padding: 15px; }
             .supp-btn { display: block; width: 100%; box-sizing: border-box; }
-            
-            /* Keep tooltips inside screen bounds on mobile */
-            .bro-tooltip {
-                width: 240px;
-            }
+            .bro-tooltip { width: 240px; }
+            li.exercise-item { flex-direction: column; align-items: flex-start; }
+            .rep-badge { margin-left: 0; margin-top: 10px; align-self: flex-start; }
         }
     </style>
 </head>
@@ -221,7 +272,19 @@
     </header>
 
     <main id="workout-container">
-        </main>
+        <!-- JavaScript will inject the weekly split here -->
+    </main>
+
+    <section id="improvised-iron">
+        <h2>🛠️ Improvised Iron Cheat Sheet</h2>
+        <p>No gym? No problem. Use these universal swaps to keep the gains flowing when equipment is light.</p>
+        <ul>
+            <li><strong>No Barbell?</strong> Use heavy dumbbells. If you don't have those, use resistance bands anchored to a door.</li>
+            <li><strong>No Bench?</strong> Do floor presses. Lay flat on the ground and press—it actually protects your shoulders.</li>
+            <li><strong>No Cable Machine?</strong> Swap cable flyes/pushdowns for resistance bands or standard dumbbell equivalents.</li>
+            <li><strong>No Pull-Up Bar?</strong> Do inverted rows under a sturdy table, or heavy dumbbell bent-over rows.</li>
+        </ul>
+    </section>
 
     <section id="supp-stack">
         <h2>The Alpha Supp Stack</h2>
@@ -236,80 +299,79 @@
     </footer>
 
     <script>
-        // MOCK DATABASE: Upgraded with the Bro-Dictionary Tooltips
+        // MOCK DATABASE: Upgraded with Badges, Timings, and MacGyver Swaps
         const workoutsDB = [
-            // WEEK 1: "The Anterior Awakening"
             {
                 weekName: "Phase 1: The Anterior Awakening",
                 days: [
                     {
                         dayName: "Monday",
                         amRoutine: [
-                            { name: "Hamstring Un-f*cker (Downward Dog)", desc: "Push your hips to the ceiling. Un-glue the damage caused by sitting at a desk all week." },
-                            { name: "Glute Wake-up Call (Bridges)", desc: "Squeeze the cheeks. If your glutes don't fire, your lower back takes the damage on bench press." },
-                            { name: "Thoracic Spine Liberator (Cat-Cow)", desc: "Arch and flex the upper back. We are reversing gamer posture so the chest pops." }
+                            { name: "Hamstring Un-f*cker", desc: "Push your hips to the ceiling.", metric: "60 Sec", alt: "Standing Toe Touches" },
+                            { name: "Glute Wake-up Call", desc: "Squeeze the cheeks.", metric: "2 x 15", alt: "Bodyweight Squats" },
+                            { name: "Thoracic Spine Liberator", desc: "Arch and flex the upper back.", metric: "10 Reps", alt: "Seated Chair Twists" }
                         ],
                         pmRoutine: [
-                            { name: "Flat Barbell Bench Press (Heavy)", desc: "Plant your feet, retract the scapula, and push the earth away from you. Egos on the bar." },
-                            { name: "Incline Dumbbell Flyes", desc: "Imagine hugging a massive, invisible barrel. Keep a slight bend in the elbow. Stretch the pec." },
-                            { name: "Posture Reinforcements: Face Pulls", desc: "Pull the rope to your eyeballs. Keeps the shoulders healthy so you can keep benching." },
-                            { name: "Tricep Rope Pushdowns", desc: "Lock the elbows to your ribs. Spread the rope at the bottom like you're ripping it apart." }
+                            { name: "Flat Barbell Bench Press", desc: "Plant your feet, retract the scapula.", metric: "4 x 8-10", alt: "Heavy DB Press or Pushups (weighted)" },
+                            { name: "Incline Dumbbell Flyes", desc: "Hug an invisible barrel.", metric: "3 x 12", alt: "Resistance Band Flyes" },
+                            { name: "Posture Reinforcements", desc: "Pull the rope to your eyeballs.", metric: "3 x 15", alt: "Band Pull-Aparts" },
+                            { name: "Tricep Rope Pushdowns", desc: "Lock the elbows to your ribs.", metric: "3 x 12-15", alt: "Overhead Dumbbell Extensions" }
                         ]
                     },
                     {
                         dayName: "Tuesday",
                         amRoutine: [
-                            { name: "Hip Flexor Savior (Lunge Stretches)", desc: "Sink deep into the lunge. Open up those hips before they snap." },
-                            { name: "Lower Back Decompressor (Child's Pose)", desc: "Reach forward and breathe into the lower back. Reset the central nervous system." },
-                            { name: "Ankle Mobility Rotations", desc: "Draw the alphabet with your big toe. Essential for not walking like a penguin." }
+                            { name: "Hip Flexor Savior", desc: "Sink deep into the lunge.", metric: "45 Sec/Leg", alt: "Laying Knee-to-Chest Stretches" },
+                            { name: "Lower Back Decompressor", desc: "Reach forward and breathe.", metric: "60 Sec", alt: "Dead Hangs from a bar" },
+                            { name: "Ankle Mobility Rotations", desc: "Draw the alphabet with your toe.", metric: "1 Set/Leg", alt: "Calf Raises on a stair edge" }
                         ],
                         pmRoutine: [
-                            { name: "Seated Dumbbell Shoulder Press", desc: "Keep the chest up. Don't let the dumbbells clank at the top. Pure tension." },
-                            { name: "Lateral Raises (Spam these)", desc: "Pour the water out of the pitcher at the top. Light weight, high reps, huge delts." },
-                            { name: "Chest Poppers: Wide-Grip Lat Pulldowns", desc: "Pull the bar to your upper chest, not your lap. Build the V-Taper to make the waist look tiny." },
-                            { name: "Barbell Bicep Curls", desc: "No swinging. If you have to use your lower back, lower the weight, boss." }
+                            { name: "Seated Dumbbell Shoulder Press", desc: "Keep the chest up.", metric: "4 x 8-10", alt: "Pike Pushups" },
+                            { name: "Lateral Raises (Spam these)", desc: "Pour the water out of the pitcher.", metric: "4 x 15", alt: "Water Jug Raises" },
+                            { name: "Chest Poppers: Wide Lat Pulldowns", desc: "Pull to your upper chest.", metric: "4 x 10", alt: "Pull-ups or Heavy DB Rows" },
+                            { name: "Barbell Bicep Curls", desc: "No swinging.", metric: "3 x 10", alt: "Resistance Band Curls" }
                         ]
                     },
                     {
                         dayName: "Wednesday",
                         amRoutine: [
-                            { name: "Full Body Tension Release (Corpse Pose)", desc: "Literally just lay on the floor and try not to fall asleep." },
-                            { name: "Pec Minor Stretch (Doorway)", desc: "Put your arm on a door frame and lean forward. Stretch out the armor." },
-                            { name: "Glute Activator (Clamshells)", desc: "Looks weird, works miracles. Protects the knees for when you walk up stairs." }
+                            { name: "Full Body Tension Release", desc: "Lay on the floor and breathe.", metric: "2 Mins", alt: "Just nap bro" },
+                            { name: "Pec Minor Stretch", desc: "Lean forward in a doorway.", metric: "45 Sec/Side", alt: "Wall Pec Stretch" },
+                            { name: "Glute Activator (Clamshells)", desc: "Protects the knees.", metric: "2 x 15/Side", alt: "Side Leg Raises" }
                         ],
                         pmRoutine: [
-                            { name: "Decline Bench Press", desc: "Target the lower chest. Make sure you have a spotter so you don't get trapped." },
-                            { name: "Cable Crossovers (Squeeze at the peak)", desc: "Cross your hands over at the bottom. Squeeze until the pecs cramp." },
-                            { name: "Posture Reinforcements: Seated Cable Rows", desc: "Pull to the belly button. Pinch your shoulder blades together like you're holding a coin." },
-                            { name: "Overhead Tricep Extensions", desc: "Get the long head of the tricep. That's the part that hangs out of the t-shirt sleeves." }
+                            { name: "Decline Bench Press", desc: "Target the lower chest.", metric: "4 x 8-10", alt: "Dips or Decline Pushups" },
+                            { name: "Cable Crossovers", desc: "Cross hands at bottom.", metric: "3 x 15", alt: "Dumbbell Floor Flyes" },
+                            { name: "Seated Cable Rows", desc: "Pinch shoulder blades together.", metric: "4 x 10-12", alt: "Bent-Over DB Rows" },
+                            { name: "Overhead Tricep Extensions", desc: "Target the long head.", metric: "3 x 12", alt: "Close-Grip Pushups" }
                         ]
                     },
                     {
                         dayName: "Thursday",
                         amRoutine: [
-                            { name: "Dynamic Spine Twists", desc: "Rotate the torso slowly. Crack the back like a glowstick." },
-                            { name: "Hamstring Un-f*cker (Round 2)", desc: "You sat too much yesterday. Do it again. Hips high." },
-                            { name: "Shoulder Dislocates (with broomstick)", desc: "Pass a broomstick over your head to your lower back. Lube up the rotator cuffs." }
+                            { name: "Dynamic Spine Twists", desc: "Rotate the torso slowly.", metric: "15 Reps", alt: "Laying Windshield Wipers" },
+                            { name: "Hamstring Un-f*cker 2.0", desc: "Hips high.", metric: "60 Sec", alt: "Seated Toe Touches" },
+                            { name: "Shoulder Dislocates", desc: "Pass stick over head.", metric: "15 Reps", alt: "Arm Circles" }
                         ],
                         pmRoutine: [
-                            { name: "Arnold Presses", desc: "Start with palms facing you, rotate as you press up. The Terminator didn't skip these." },
-                            { name: "Front Plate Raises", desc: "Grab a 45lb plate like a steering wheel. Raise it to eye level." },
-                            { name: "Chest Poppers: Straight Arm Pulldowns", desc: "Keep arms completely straight. Push the bar down using purely your lats." },
-                            { name: "Hammer Curls", desc: "Thumbs up. Builds the brachialis to push the bicep up higher." }
+                            { name: "Arnold Presses", desc: "Palms facing you, rotate up.", metric: "4 x 10", alt: "Standard DB Press" },
+                            { name: "Front Plate Raises", desc: "Grab a 45lb plate like a wheel.", metric: "3 x 12", alt: "DB Front Raises" },
+                            { name: "Straight Arm Pulldowns", desc: "Keep arms straight. Lats only.", metric: "3 x 15", alt: "Dumbbell Pullovers on bench/floor" },
+                            { name: "Hammer Curls", desc: "Thumbs up.", metric: "3 x 12", alt: "Towel Curls with resistance band" }
                         ]
                     },
                     {
                         dayName: "Friday",
                         amRoutine: [
-                            { name: "Pre-Club Pump Preparations (Arm Circles)", desc: "Small circles forward, big circles back. Getting blood into the system." },
-                            { name: "Hip Opener (Pigeon Pose)", desc: "Cross one leg under you. Surrender to the pain. It's good for you." },
-                            { name: "Core Activation (Planks)", desc: "Squeeze the glutes and brace the core like you're about to get punched in the stomach." }
+                            { name: "Pre-Club Pump Preparations", desc: "Small circles forward.", metric: "2 Mins", alt: "Jumping Jacks" },
+                            { name: "Hip Opener (Pigeon Pose)", desc: "Cross one leg under you.", metric: "60 Sec/Side", alt: "Figure-4 Laying Stretch" },
+                            { name: "Core Activation (Planks)", desc: "Squeeze the glutes.", metric: "3 x 60 Sec", alt: "Hollow Body Holds" }
                         ],
                         pmRoutine: [
-                            { name: "Incline Barbell Press", desc: "The ultimate upper chest builder. Lower it to the clavicle." },
-                            { name: "Pec Deck Machine", desc: "Sit deep in the seat. Don't use your arms, use your chest to bring the pads together." },
-                            { name: "Lateral Raise Machine (Burnout)", desc: "Run the rack. Keep dropping the weight until you literally can't lift your arms." },
-                            { name: "Super-set: Bicep Curls & Tricep Pushdowns", desc: "Zero rest between the two. Gorge the arms with blood right before the weekend." }
+                            { name: "Incline Barbell Press", desc: "Lower to the clavicle.", metric: "4 x 8-10", alt: "Incline Pushups (feet elevated)" },
+                            { name: "Pec Deck Machine", desc: "Don't use your arms, use your chest.", metric: "3 x 12-15", alt: "Flat DB Flyes" },
+                            { name: "Lateral Raise Burnout", desc: "Drop weight till failure.", metric: "1 x 50", alt: "Band Lateral Raises" },
+                            { name: "Bicep & Tricep Super-set", desc: "Gorge the arms with blood.", metric: "3 x 15", alt: "DB Curls & Chair Dips" }
                         ]
                     }
                 ]
@@ -324,7 +386,6 @@
         }
 
         function renderWorkout() {
-            // For this version we are looping Week 1 repeatedly, but the modulo logic remains for scaling
             const workoutIndex = 0; 
             const currentWeekData = workoutsDB[workoutIndex];
 
@@ -334,20 +395,20 @@
             currentWeekData.days.forEach((day, index) => {
                 const dayNum = index + 1; 
                 
-                // Map out the HTML, now including the tooltip span and utilizing object data
-                let amHTML = day.amRoutine.map(ex => `
+                // Helper function to build list items so we don't repeat code
+                const buildListItem = (ex) => `
                     <li class="exercise-item">
-                        ${ex.name}
-                        <span class="bro-tooltip">${ex.desc}</span>
+                        <span>${ex.name}</span>
+                        <span class="rep-badge">${ex.metric}</span>
+                        <span class="bro-tooltip">
+                            ${ex.desc}
+                            ${ex.alt ? `<span class="macgyver-swap">🔧 Swap: ${ex.alt}</span>` : ''}
+                        </span>
                     </li>
-                `).join('');
-                
-                let pmHTML = day.pmRoutine.map(ex => `
-                    <li class="exercise-item">
-                        ${ex.name}
-                        <span class="bro-tooltip">${ex.desc}</span>
-                    </li>
-                `).join('');
+                `;
+
+                let amHTML = day.amRoutine.map(buildListItem).join('');
+                let pmHTML = day.pmRoutine.map(buildListItem).join('');
 
                 const dayCard = `
                     <div class="day-card" id="day-${dayNum}">
