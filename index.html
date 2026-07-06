@@ -89,7 +89,8 @@
             margin: 0;
         }
 
-        ul.exercise-list li {
+        /* Bro-Dictionary Tooltip CSS */
+        li.exercise-item {
             background-color: #2a2a2a;
             margin-bottom: 10px;
             padding: 15px;
@@ -97,6 +98,54 @@
             border-left: 4px solid var(--neon-pink);
             font-size: 1.1rem;
             font-weight: 700;
+            position: relative; /* Crucial for tooltip positioning */
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        li.exercise-item:hover {
+            background-color: #333;
+        }
+
+        .bro-tooltip {
+            visibility: hidden;
+            width: 280px;
+            background-color: #111;
+            color: #fff;
+            text-align: center;
+            border: 1px solid var(--electric-cyan);
+            border-radius: 8px;
+            padding: 12px;
+            position: absolute;
+            z-index: 10;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s ease, bottom 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            font-size: 0.9rem;
+            font-weight: 400;
+            font-style: italic;
+            pointer-events: none; /* Prevents tooltip from interfering with hover */
+        }
+
+        .bro-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--electric-cyan) transparent transparent transparent;
+        }
+
+        li.exercise-item:hover .bro-tooltip,
+        li.exercise-item:active .bro-tooltip {
+            visibility: visible;
+            opacity: 1;
+            bottom: 120%;
         }
 
         /* Supp Stack Section */
@@ -156,6 +205,11 @@
             h1.logo { font-size: 2.5rem; }
             .day-card { padding: 15px; }
             .supp-btn { display: block; width: 100%; box-sizing: border-box; }
+            
+            /* Keep tooltips inside screen bounds on mobile */
+            .bro-tooltip {
+                width: 240px;
+            }
         }
     </style>
 </head>
@@ -182,7 +236,7 @@
     </footer>
 
     <script>
-        // MOCK DATABASE: The Holy Grail of Gains (2-Week Cycle)
+        // MOCK DATABASE: Upgraded with the Bro-Dictionary Tooltips
         const workoutsDB = [
             // WEEK 1: "The Anterior Awakening"
             {
@@ -190,59 +244,73 @@
                 days: [
                     {
                         dayName: "Monday",
-                        amRoutine: ["Hamstring Un-f*cker (Downward Dog)", "Glute Wake-up Call (Bridges)", "Thoracic Spine Liberator (Cat-Cow)"],
-                        pmRoutine: ["Flat Barbell Bench Press (Heavy)", "Incline Dumbbell Flyes", "Posture Reinforcements: Face Pulls", "Tricep Rope Pushdowns"]
+                        amRoutine: [
+                            { name: "Hamstring Un-f*cker (Downward Dog)", desc: "Push your hips to the ceiling. Un-glue the damage caused by sitting at a desk all week." },
+                            { name: "Glute Wake-up Call (Bridges)", desc: "Squeeze the cheeks. If your glutes don't fire, your lower back takes the damage on bench press." },
+                            { name: "Thoracic Spine Liberator (Cat-Cow)", desc: "Arch and flex the upper back. We are reversing gamer posture so the chest pops." }
+                        ],
+                        pmRoutine: [
+                            { name: "Flat Barbell Bench Press (Heavy)", desc: "Plant your feet, retract the scapula, and push the earth away from you. Egos on the bar." },
+                            { name: "Incline Dumbbell Flyes", desc: "Imagine hugging a massive, invisible barrel. Keep a slight bend in the elbow. Stretch the pec." },
+                            { name: "Posture Reinforcements: Face Pulls", desc: "Pull the rope to your eyeballs. Keeps the shoulders healthy so you can keep benching." },
+                            { name: "Tricep Rope Pushdowns", desc: "Lock the elbows to your ribs. Spread the rope at the bottom like you're ripping it apart." }
+                        ]
                     },
                     {
                         dayName: "Tuesday",
-                        amRoutine: ["Hip Flexor Savior (Lunge Stretches)", "Lower Back Decompressor (Child's Pose)", "Ankle Mobility Rotations"],
-                        pmRoutine: ["Seated Dumbbell Shoulder Press", "Lateral Raises (Spam these)", "Chest Poppers: Wide-Grip Lat Pulldowns", "Barbell Bicep Curls"]
+                        amRoutine: [
+                            { name: "Hip Flexor Savior (Lunge Stretches)", desc: "Sink deep into the lunge. Open up those hips before they snap." },
+                            { name: "Lower Back Decompressor (Child's Pose)", desc: "Reach forward and breathe into the lower back. Reset the central nervous system." },
+                            { name: "Ankle Mobility Rotations", desc: "Draw the alphabet with your big toe. Essential for not walking like a penguin." }
+                        ],
+                        pmRoutine: [
+                            { name: "Seated Dumbbell Shoulder Press", desc: "Keep the chest up. Don't let the dumbbells clank at the top. Pure tension." },
+                            { name: "Lateral Raises (Spam these)", desc: "Pour the water out of the pitcher at the top. Light weight, high reps, huge delts." },
+                            { name: "Chest Poppers: Wide-Grip Lat Pulldowns", desc: "Pull the bar to your upper chest, not your lap. Build the V-Taper to make the waist look tiny." },
+                            { name: "Barbell Bicep Curls", desc: "No swinging. If you have to use your lower back, lower the weight, boss." }
+                        ]
                     },
                     {
                         dayName: "Wednesday",
-                        amRoutine: ["Full Body Tension Release (Corpse Pose)", "Pec Minor Stretch (Doorway)", "Glute Activator (Clamshells)"],
-                        pmRoutine: ["Decline Bench Press", "Cable Crossovers (Squeeze at the peak)", "Posture Reinforcements: Seated Cable Rows", "Overhead Tricep Extensions"]
+                        amRoutine: [
+                            { name: "Full Body Tension Release (Corpse Pose)", desc: "Literally just lay on the floor and try not to fall asleep." },
+                            { name: "Pec Minor Stretch (Doorway)", desc: "Put your arm on a door frame and lean forward. Stretch out the armor." },
+                            { name: "Glute Activator (Clamshells)", desc: "Looks weird, works miracles. Protects the knees for when you walk up stairs." }
+                        ],
+                        pmRoutine: [
+                            { name: "Decline Bench Press", desc: "Target the lower chest. Make sure you have a spotter so you don't get trapped." },
+                            { name: "Cable Crossovers (Squeeze at the peak)", desc: "Cross your hands over at the bottom. Squeeze until the pecs cramp." },
+                            { name: "Posture Reinforcements: Seated Cable Rows", desc: "Pull to the belly button. Pinch your shoulder blades together like you're holding a coin." },
+                            { name: "Overhead Tricep Extensions", desc: "Get the long head of the tricep. That's the part that hangs out of the t-shirt sleeves." }
+                        ]
                     },
                     {
                         dayName: "Thursday",
-                        amRoutine: ["Dynamic Spine Twists", "Hamstring Un-f*cker (Round 2)", "Shoulder Dislocates (with broomstick)"],
-                        pmRoutine: ["Arnold Presses", "Front Plate Raises", "Chest Poppers: Straight Arm Pulldowns", "Hammer Curls"]
+                        amRoutine: [
+                            { name: "Dynamic Spine Twists", desc: "Rotate the torso slowly. Crack the back like a glowstick." },
+                            { name: "Hamstring Un-f*cker (Round 2)", desc: "You sat too much yesterday. Do it again. Hips high." },
+                            { name: "Shoulder Dislocates (with broomstick)", desc: "Pass a broomstick over your head to your lower back. Lube up the rotator cuffs." }
+                        ],
+                        pmRoutine: [
+                            { name: "Arnold Presses", desc: "Start with palms facing you, rotate as you press up. The Terminator didn't skip these." },
+                            { name: "Front Plate Raises", desc: "Grab a 45lb plate like a steering wheel. Raise it to eye level." },
+                            { name: "Chest Poppers: Straight Arm Pulldowns", desc: "Keep arms completely straight. Push the bar down using purely your lats." },
+                            { name: "Hammer Curls", desc: "Thumbs up. Builds the brachialis to push the bicep up higher." }
+                        ]
                     },
                     {
                         dayName: "Friday",
-                        amRoutine: ["Pre-Club Pump Preparations (Arm Circles)", "Hip Opener (Pigeon Pose)", "Core Activation (Planks)"],
-                        pmRoutine: ["Incline Barbell Press", "Pec Deck Machine", "Lateral Raise Machine (Burnout)", "Super-set: Bicep Curls & Tricep Pushdowns"]
-                    }
-                ]
-            },
-            // WEEK 2: "The Mirror Muscle Masterclass"
-            {
-                weekName: "Phase 2: The Mirror Muscle Masterclass",
-                days: [
-                    {
-                        dayName: "Monday",
-                        amRoutine: ["The Posture Fixer (Wall Angels)", "Glute Wake-up Call (Bridges)", "Neck Mobility Rolls"],
-                        pmRoutine: ["Incline Dumbbell Press (Go Heavy)", "Flat Bench Dumbbell Flyes", "Posture Reinforcements: Rear Delt Flyes", "Skullcrushers"]
-                    },
-                    {
-                        dayName: "Tuesday",
-                        amRoutine: ["Hamstring Un-f*cker (Downward Dog)", "Lower Back Decompressor", "Ankle Mobility Rotations"],
-                        pmRoutine: ["Standing Military Press", "Cable Lateral Raises", "Chest Poppers: Pull-ups (Assisted if needed)", "Preacher Curls"]
-                    },
-                    {
-                        dayName: "Wednesday",
-                        amRoutine: ["Hip Flexor Savior", "Thoracic Spine Liberator", "Pec Minor Stretch"],
-                        pmRoutine: ["Weighted Dips (Chest focused)", "Pushups to failure", "Posture Reinforcements: Single Arm Dumbbell Rows", "Tricep Kickbacks"]
-                    },
-                    {
-                        dayName: "Thursday",
-                        amRoutine: ["Full Body Tension Release", "Glute Activator", "Dynamic Spine Twists"],
-                        pmRoutine: ["Machine Shoulder Press", "Upright Rows (Watch the wrists)", "Chest Poppers: T-Bar Rows", "Concentration Curls"]
-                    },
-                    {
-                        dayName: "Friday",
-                        amRoutine: ["Pre-Weekend Flex Prep (Mirror Posing)", "Shoulder Dislocates", "Hip Opener"],
-                        pmRoutine: ["Guillotine Bench Press", "Cable Crossovers (Low to High)", "Lateral Raises (Drop set to hell)", "21s Bicep Curls"]
+                        amRoutine: [
+                            { name: "Pre-Club Pump Preparations (Arm Circles)", desc: "Small circles forward, big circles back. Getting blood into the system." },
+                            { name: "Hip Opener (Pigeon Pose)", desc: "Cross one leg under you. Surrender to the pain. It's good for you." },
+                            { name: "Core Activation (Planks)", desc: "Squeeze the glutes and brace the core like you're about to get punched in the stomach." }
+                        ],
+                        pmRoutine: [
+                            { name: "Incline Barbell Press", desc: "The ultimate upper chest builder. Lower it to the clavicle." },
+                            { name: "Pec Deck Machine", desc: "Sit deep in the seat. Don't use your arms, use your chest to bring the pads together." },
+                            { name: "Lateral Raise Machine (Burnout)", desc: "Run the rack. Keep dropping the weight until you literally can't lift your arms." },
+                            { name: "Super-set: Bicep Curls & Tricep Pushdowns", desc: "Zero rest between the two. Gorge the arms with blood right before the weekend." }
+                        ]
                     }
                 ]
             }
@@ -256,19 +324,30 @@
         }
 
         function renderWorkout() {
-            const currentWeekNumber = getWeekOfYear(new Date());
-            const workoutIndex = currentWeekNumber % workoutsDB.length;
+            // For this version we are looping Week 1 repeatedly, but the modulo logic remains for scaling
+            const workoutIndex = 0; 
             const currentWeekData = workoutsDB[workoutIndex];
 
             const container = document.getElementById('workout-container');
             container.innerHTML = `<h2 style="text-align: center; color: var(--electric-cyan); margin-bottom: 30px;">Current Protocol: ${currentWeekData.weekName}</h2>`;
 
             currentWeekData.days.forEach((day, index) => {
-                // Determine day number (1 for Monday, 2 for Tuesday, etc.) to match Date().getDay()
                 const dayNum = index + 1; 
                 
-                let amHTML = day.amRoutine.map(ex => `<li>${ex}</li>`).join('');
-                let pmHTML = day.pmRoutine.map(ex => `<li>${ex}</li>`).join('');
+                // Map out the HTML, now including the tooltip span and utilizing object data
+                let amHTML = day.amRoutine.map(ex => `
+                    <li class="exercise-item">
+                        ${ex.name}
+                        <span class="bro-tooltip">${ex.desc}</span>
+                    </li>
+                `).join('');
+                
+                let pmHTML = day.pmRoutine.map(ex => `
+                    <li class="exercise-item">
+                        ${ex.name}
+                        <span class="bro-tooltip">${ex.desc}</span>
+                    </li>
+                `).join('');
 
                 const dayCard = `
                     <div class="day-card" id="day-${dayNum}">
@@ -294,9 +373,8 @@
         }
 
         function scrollToToday() {
-            const today = new Date().getDay(); // 0 = Sunday, 1 = Monday ... 6 = Saturday
+            const today = new Date().getDay(); 
             
-            // Only scroll if it's Monday (1) through Friday (5)
             if (today >= 1 && today <= 5) {
                 setTimeout(() => {
                     const targetElement = document.getElementById(`day-${today}`);
@@ -306,14 +384,14 @@
                             block: 'start' 
                         });
                     }
-                }, 500); // 500ms delay to allow DOM to render and build anticipation
+                }, 500); 
             }
         }
 
         // Initialize App
         document.addEventListener('DOMContentLoaded', () => {
             renderWorkout();
-            scrollToToday(); // Trigger the auto-scroll feature
+            scrollToToday();
         });
 
     </script>
