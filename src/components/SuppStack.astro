@@ -1,0 +1,15 @@
+---
+import { supplements } from "../data/supplements";
+---
+
+<section id="supp-stack" aria-labelledby="supp-title">
+    <h2 id="supp-title">The Alpha Supp Stack</h2>
+    <p>You can't out-train a bad diet, but apparently you can accessorize it. Affiliate links are coming once legal finishes its protein shake.</p>
+    <div class="supp-grid">
+        {supplements.map((supplement) => supplement.url ? (
+            <a class="supp-btn" href={supplement.url} rel="sponsored">Buy {supplement.name}</a>
+        ) : (
+            <span class="supp-btn supp-btn-placeholder">{supplement.name} — Coming Soon</span>
+        ))}
+    </div>
+</section>

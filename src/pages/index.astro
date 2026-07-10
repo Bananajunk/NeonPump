@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WorkoutWeek from "../components/WorkoutWeek.astro";
+import ImprovisedIron from "../components/ImprovisedIron.astro";
+import SuppStack from "../components/SuppStack.astro";
+import MedicalDisclaimer from "../components/MedicalDisclaimer.astro";
+import { workoutWeeks } from "../data/workouts";
+---
+
+<BaseLayout
+    title="NeonPump | Skip Leg Day. We Won't Tell."
+    description="A rotating five-day glory-muscle workout plan with mobility, exercise translations, and unapologetic bro science."
+>
+    <main id="workout-container" tabindex="-1">
+        {workoutWeeks.map((workoutWeek, index) => (
+            <WorkoutWeek workoutWeek={workoutWeek} weekNumber={index + 1} />
+        ))}
+    </main>
+    <ImprovisedIron />
+    <SuppStack />
+    <MedicalDisclaimer />
+
+    <script>
+        import { initializeWorkout } from "../scripts/workout";
+
+        initializeWorkout();
+    </script>
+</BaseLayout>

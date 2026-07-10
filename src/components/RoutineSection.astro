@@ -1,0 +1,19 @@
+---
+import ExerciseItem from "./ExerciseItem.astro";
+import type { Exercise } from "../types/workout";
+
+interface Props {
+    title: string;
+    icon: string;
+    exercises: Exercise[];
+}
+
+const { title, icon, exercises } = Astro.props;
+---
+
+<section class="routine-section">
+    <h4 class="routine-title"><span aria-hidden="true">{icon}</span> {title}</h4>
+    <ul class="exercise-list">
+        {exercises.map((exercise) => <ExerciseItem exercise={exercise} />)}
+    </ul>
+</section>

@@ -1,0 +1,28 @@
+---
+import type { Exercise } from "../types/workout";
+
+interface Props {
+    exercise: Exercise;
+}
+
+const { exercise } = Astro.props;
+---
+
+<li class="exercise-item">
+    <details>
+        <summary>
+            <span class="exercise-heading">
+                <span class="exercise-name">{exercise.name}</span>
+                <span class="info-trigger" aria-hidden="true">i</span>
+                <span class="visually-hidden">Show exercise details</span>
+            </span>
+            <span class="rep-badge">{exercise.metric}</span>
+        </summary>
+        <div class="bro-translation">
+            <p>{exercise.description}</p>
+            {exercise.alternative && (
+                <p class="macgyver-swap"><span aria-hidden="true">🔧</span> Swap: {exercise.alternative}</p>
+            )}
+        </div>
+    </details>
+</li>

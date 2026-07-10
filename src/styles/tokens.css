@@ -1,0 +1,20 @@
+:root {
+    --color-background: #121212;
+    --color-panel: #1e1e1e;
+    --color-panel-raised: #2a2a2a;
+    --color-text: #ffffff;
+    --color-muted: #b8b8b8;
+    --color-pink: #ff107a;
+    --color-cyan: #00ffff;
+    --color-danger: #ff6868;
+    --font-display: "Montserrat", system-ui, sans-serif;
+    --content-width: 50rem;
+    --radius-small: 0.35rem;
+    --radius-large: 0.65rem;
+    --space-1: 0.5rem;
+    --space-2: 0.75rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --space-5: 2.5rem;
+    color-scheme: dark;
+}
