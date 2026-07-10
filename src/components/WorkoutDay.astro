@@ -1,0 +1,18 @@
+---
+import RoutineSection from "./RoutineSection.astro";
+import type { WorkoutDay } from "../types/workout";
+
+interface Props {
+    workoutDay: WorkoutDay;
+    dayNumber: number;
+    weekNumber: number;
+}
+
+const { workoutDay, dayNumber, weekNumber } = Astro.props;
+---
+
+<article class="day-card" id={`week-${weekNumber}-day-${dayNumber}`} data-weekday={dayNumber}>
+    <h3 class="day-title">{workoutDay.day}</h3>
+    <RoutineSection title="Tactical Chassis Alignment (AM)" icon="☀️" exercises={workoutDay.morning} />
+    <RoutineSection title="The Glory Lifts (PM)" icon="💪" exercises={workoutDay.afternoon} />
+</article>

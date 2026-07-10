@@ -1,0 +1,20 @@
+{
+  "name": "neonpump",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "check": "astro check",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "deploy": "wrangler deploy",
+    "release": "bun run deploy"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "astro": "^7.0.7",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.110.0"
+  }
+}

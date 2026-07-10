@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-padding-top: var(--space-3);
+}
+
+body {
+    min-width: 20rem;
+    margin: 0;
+    padding: var(--space-3);
+    overflow-x: hidden;
+    background: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+    overflow-wrap: anywhere;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+a {
+    color: var(--color-cyan);
+}
+
+:focus-visible {
+    outline: 0.2rem solid var(--color-cyan);
+    outline-offset: 0.2rem;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.skip-link {
+    position: fixed;
+    z-index: 100;
+    top: var(--space-3);
+    left: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    transform: translateY(-200%);
+    background: var(--color-cyan);
+    color: var(--color-background);
+    font-weight: 900;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

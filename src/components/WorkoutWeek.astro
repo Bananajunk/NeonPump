@@ -1,0 +1,18 @@
+---
+import WorkoutDay from "./WorkoutDay.astro";
+import type { WorkoutWeek } from "../types/workout";
+
+interface Props {
+    workoutWeek: WorkoutWeek;
+    weekNumber: number;
+}
+
+const { workoutWeek, weekNumber } = Astro.props;
+---
+
+<section class="workout-week" data-workout-week>
+    <h2 class="protocol-title">Current Protocol: {workoutWeek.name}</h2>
+    {workoutWeek.days.map((workoutDay, index) => (
+        <WorkoutDay workoutDay={workoutDay} dayNumber={index + 1} weekNumber={weekNumber} />
+    ))}
+</section>
