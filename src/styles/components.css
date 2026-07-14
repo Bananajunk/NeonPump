@@ -23,6 +23,44 @@
     text-shadow: 0 0 0.35rem var(--color-cyan);
 }
 
+.site-nav {
+    display: flex;
+    gap: var(--space-1);
+    width: min(100%, 34rem);
+    margin: 0 auto var(--space-5);
+    padding: var(--space-1);
+    border: 1px solid rgb(0 255 255 / 35%);
+    border-radius: var(--radius-large);
+    background: var(--color-panel);
+    box-shadow: 0 0 1rem rgb(0 255 255 / 12%);
+}
+
+.site-nav-tab {
+    display: inline-flex;
+    flex: 1 1 0;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-small);
+    color: var(--color-muted);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    transition: color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.site-nav-tab:hover {
+    color: var(--color-cyan);
+    background: var(--color-panel-raised);
+}
+
+.site-nav-tab[aria-current="page"] {
+    background: var(--color-pink);
+    color: var(--color-background);
+    box-shadow: 0 0 0.9rem rgb(255 16 122 / 55%);
+}
+
 #workout-container,
 .content-panel,
 #supp-stack,

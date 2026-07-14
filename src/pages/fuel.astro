@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GainzCalculator from "../components/GainzCalculator.astro";
+import SuppStack from "../components/SuppStack.astro";
+---
+
+<BaseLayout
+    title="NeonPump | The Fuel — Macros & Supp Stack"
+    description="Crunch your calorie ceiling and 40/30/30 macro split with the Gainz Calculator, then load up the Alpha Supp Stack."
+    skipHref="#fuel-container"
+    skipLabel="Skip to the calculator"
+>
+    <main id="fuel-container" tabindex="-1">
+        <GainzCalculator />
+        <SuppStack />
+    </main>
+
+    <script>
+        import { initializeGainzCalculator } from "../scripts/gainz";
+
+        initializeGainzCalculator();
+    </script>
+</BaseLayout>

@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-NeonPump is a statically generated Astro site. Routes live in `src/pages/`, shared layouts and UI in `src/layouts/` and `src/components/`, and global styling in `src/styles/`. Typed workout and supplement content belongs in `src/data/`; shared interfaces belong in `src/types/`. Keep browser-only progressive enhancement in `src/scripts/`. Astro writes deployable assets to ignored `dist/`, which `wrangler.jsonc` publishes to Cloudflare Workers Static Assets.
+NeonPump is a statically generated Astro site. Routes live in `src/pages/` — `/` (index) is the workout plan and `/fuel` is the Gainz Calculator plus supplement stack, joined by the `SiteNav` link bar. Shared layouts and UI live in `src/layouts/` and `src/components/`, and global styling in `src/styles/`. Typed workout and supplement content belongs in `src/data/`; shared interfaces belong in `src/types/`. Keep browser-only progressive enhancement in `src/scripts/`. Astro writes deployable assets to ignored `dist/`, which `wrangler.jsonc` publishes to Cloudflare Workers Static Assets.
 
 ## Build, Test, and Development Commands
 
@@ -21,7 +21,7 @@ Use four-space indentation in Astro, CSS, and TypeScript; JSON files use two spa
 
 ## Testing Guidelines
 
-Run `bun run check` and `bun run build` before every pull request. Manually verify mobile and desktop layouts, keyboard operation of exercise disclosures, weekday auto-scroll, reduced-motion behavior, and the no-JavaScript reading experience. For the Gainz Calculator, verify it computes and displays results, rejects invalid input with the error message, keeps its inputs aligned across columns on desktop and stacked on mobile, and falls back to the `<noscript>` note with JavaScript disabled. Test around the `35rem` and `40rem` breakpoints and check the browser console. There is no coverage threshold yet; add focused tests when behavior becomes complex enough to regress silently.
+Run `bun run check` and `bun run build` before every pull request. Manually verify mobile and desktop layouts, keyboard operation of exercise disclosures, weekday auto-scroll, reduced-motion behavior, and the no-JavaScript reading experience. Check the `SiteNav` on both routes: the active link carries `aria-current="page"`, navigating `/`↔`/fuel` works by mouse and keyboard, the per-page skip link resolves to the right `<main>`, and each page still reads with JavaScript disabled. For the Gainz Calculator, verify it computes and displays results, rejects invalid input with the error message, keeps its inputs aligned across columns on desktop and stacked on mobile, and falls back to the `<noscript>` note with JavaScript disabled. Test around the `35rem` and `40rem` breakpoints and check the browser console. There is no coverage threshold yet; add focused tests when behavior becomes complex enough to regress silently.
 
 ## Commit & Pull Request Guidelines
 
