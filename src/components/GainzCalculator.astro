@@ -1,0 +1,80 @@
+---
+import { activityLevels, calorieGoals } from "../data/gainz";
+---
+
+<section id="gainz-calculator" aria-labelledby="gainz-title">
+    <h2 id="gainz-title">The Gainz Calculator</h2>
+    <p class="gainz-intro">Punch in the stats. The algorithm doesn't care about your feelings — it cares about your macros. Dial in the split and go build something the mirror respects.</p>
+
+    <form id="gainz-form" class="gainz-form">
+        <div class="gainz-field">
+            <label for="gainz-weight">Bodyweight (lbs)</label>
+            <input id="gainz-weight" name="weight" class="gainz-input" type="number" inputmode="decimal" min="1" step="any" placeholder="e.g. 185" required />
+        </div>
+
+        <fieldset class="gainz-fieldset">
+            <legend>Height</legend>
+            <div class="gainz-height-group">
+                <input id="gainz-feet" name="feet" class="gainz-input" type="number" inputmode="numeric" min="0" max="8" step="1" placeholder="Feet" aria-label="Height in feet" required />
+                <input id="gainz-inches" name="inches" class="gainz-input" type="number" inputmode="numeric" min="0" max="11" step="1" placeholder="Inches" aria-label="Height, additional inches" />
+            </div>
+        </fieldset>
+
+        <div class="gainz-field">
+            <label for="gainz-age">Age</label>
+            <input id="gainz-age" name="age" class="gainz-input" type="number" inputmode="numeric" min="1" max="120" step="1" placeholder="e.g. 28" required />
+        </div>
+
+        <div class="gainz-field">
+            <label for="gainz-activity">Activity Level</label>
+            <select id="gainz-activity" name="activity" class="gainz-select" required>
+                {activityLevels.map((level) => (
+                    <option value={level.id}>{level.label}</option>
+                ))}
+            </select>
+        </div>
+
+        <div class="gainz-field">
+            <label for="gainz-goal">The Goal</label>
+            <select id="gainz-goal" name="goal" class="gainz-select" required>
+                {calorieGoals.map((goal) => (
+                    <option value={goal.id}>{goal.label}</option>
+                ))}
+            </select>
+        </div>
+
+        <button type="submit" class="gainz-submit">Calculate My Gainz</button>
+    </form>
+
+    <div class="gainz-results" data-gainz-results tabindex="-1" aria-live="polite" hidden>
+        <h3 class="gainz-results-title">Your Marching Orders</h3>
+        <p class="gainz-ceiling-label">The Calorie Ceiling</p>
+        <p class="gainz-ceiling"><span data-gainz-ceiling>0</span><span class="gainz-ceiling-unit">kcal / day — hit it or hit the door</span></p>
+
+        <div class="gainz-macro-grid">
+            <div class="gainz-macro gainz-macro-protein">
+                <p class="gainz-macro-name">The Bricks</p>
+                <p class="gainz-macro-sub">Protein · 30%</p>
+                <p class="gainz-macro-value"><span data-gainz-protein>0</span> g</p>
+            </div>
+            <div class="gainz-macro gainz-macro-carbs">
+                <p class="gainz-macro-name">The Rocket Fuel</p>
+                <p class="gainz-macro-sub">Carbs · 40%</p>
+                <p class="gainz-macro-value"><span data-gainz-carbs>0</span> g</p>
+            </div>
+            <div class="gainz-macro gainz-macro-fats">
+                <p class="gainz-macro-name">The Lubricant</p>
+                <p class="gainz-macro-sub">Fats · 30%</p>
+                <p class="gainz-macro-value"><span data-gainz-fats>0</span> g</p>
+            </div>
+        </div>
+
+        <p class="gainz-fine-print">Baseline runs on a male engine (Mifflin-St Jeor). This is bro science, not a nutritionist — read the fine print below before you eat six meals of chicken and rice.</p>
+    </div>
+
+    <p class="gainz-error" data-gainz-error role="alert" hidden>Whoa there, champ. Fill in real numbers for weight, height, and age before the machine can do its job.</p>
+
+    <noscript>
+        <p class="gainz-noscript">The Gainz Calculator runs entirely in your browser. Switch JavaScript on to crunch the numbers.</p>
+    </noscript>
+</section>
