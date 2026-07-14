@@ -2,9 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import WorkoutWeek from "../components/WorkoutWeek.astro";
 import ImprovisedIron from "../components/ImprovisedIron.astro";
-import GainzCalculator from "../components/GainzCalculator.astro";
-import SuppStack from "../components/SuppStack.astro";
-import MedicalDisclaimer from "../components/MedicalDisclaimer.astro";
 import { workoutWeeks } from "../data/workouts";
 ---
 
@@ -18,15 +15,10 @@ import { workoutWeeks } from "../data/workouts";
         ))}
     </main>
     <ImprovisedIron />
-    <GainzCalculator />
-    <SuppStack />
-    <MedicalDisclaimer />
 
     <script>
         import { initializeWorkout } from "../scripts/workout";
-        import { initializeGainzCalculator } from "../scripts/gainz";
 
         initializeWorkout();
-        initializeGainzCalculator();
     </script>
 </BaseLayout>

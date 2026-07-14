@@ -1,0 +1,9 @@
+---
+const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const isFuel = path === "/fuel";
+---
+
+<nav class="site-nav" aria-label="Sections">
+    <a class="site-nav-tab" href="/" aria-current={isFuel ? undefined : "page"}>Workout</a>
+    <a class="site-nav-tab" href="/fuel/" aria-current={isFuel ? "page" : undefined}>Fuel</a>
+</nav>
