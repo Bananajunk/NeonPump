@@ -21,7 +21,7 @@ Use four-space indentation in Astro, CSS, and TypeScript; JSON files use two spa
 
 ## Testing Guidelines
 
-Run `bun run check` and `bun run build` before every pull request. Manually verify mobile and desktop layouts, keyboard operation of exercise disclosures, weekday auto-scroll, reduced-motion behavior, and the no-JavaScript reading experience. Test around the `35rem` and `40rem` breakpoints and check the browser console. There is no coverage threshold yet; add focused tests when behavior becomes complex enough to regress silently.
+Run `bun run check` and `bun run build` before every pull request. Manually verify mobile and desktop layouts, keyboard operation of exercise disclosures, weekday auto-scroll, reduced-motion behavior, and the no-JavaScript reading experience. For the Gainz Calculator, verify it computes and displays results, rejects invalid input with the error message, keeps its inputs aligned across columns on desktop and stacked on mobile, and falls back to the `<noscript>` note with JavaScript disabled. Test around the `35rem` and `40rem` breakpoints and check the browser console. There is no coverage threshold yet; add focused tests when behavior becomes complex enough to regress silently.
 
 ## Commit & Pull Request Guidelines
 
