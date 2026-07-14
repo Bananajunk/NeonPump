@@ -1,15 +1,49 @@
 ---
 import { supplements } from "../data/supplements";
+
+const morningStack = supplements.filter((supplement) => supplement.phase === "am");
+const pmRecovery = supplements.filter((supplement) => supplement.phase === "pm");
+
+const formatDose = (dose: string, note?: string) => (note ? `${dose}, ${note}` : dose);
 ---
 
 <section id="supp-stack" aria-labelledby="supp-title">
     <h2 id="supp-title">The Alpha Supp Stack</h2>
     <p>You can't out-train a bad diet, but apparently you can accessorize it. Affiliate links are coming once legal finishes its protein shake.</p>
-    <div class="supp-grid">
-        {supplements.map((supplement) => supplement.url ? (
-            <a class="supp-btn" href={supplement.url} rel="sponsored">Buy {supplement.name}</a>
-        ) : (
-            <span class="supp-btn supp-btn-placeholder">{supplement.name} — Coming Soon</span>
+
+    <ul class="supp-grid" aria-label="Supplement stack at a glance">
+        {supplements.map((supplement) => (
+            <li>
+                {supplement.url ? (
+                    <a class="supp-btn" href={supplement.url} rel="sponsored">{supplement.name} — {supplement.timing}</a>
+                ) : (
+                    <span class="supp-btn">{supplement.name} — {supplement.timing}</span>
+                )}
+            </li>
         ))}
+    </ul>
+
+    <h3 class="deploy-title">Your Daily Deployment Protocol</h3>
+    <div class="deploy-grid">
+        <section class="deploy-col" aria-labelledby="deploy-am-title">
+            <h4 id="deploy-am-title" class="deploy-heading">
+                <span class="deploy-icon" aria-hidden="true">☀️</span> The Morning Stack (AM)
+            </h4>
+            <ul class="deploy-list">
+                {morningStack.map((supplement) => (
+                    <li>{supplement.protocolName} ({formatDose(supplement.dose, supplement.note)})</li>
+                ))}
+            </ul>
+        </section>
+        <section class="deploy-col" aria-labelledby="deploy-pm-title">
+            <h4 id="deploy-pm-title" class="deploy-heading">
+                <span class="deploy-icon" aria-hidden="true">🌙</span> PM Recovery (PM)
+            </h4>
+            <ul class="deploy-list">
+                {pmRecovery.map((supplement) => (
+                    <li>{supplement.protocolName} ({formatDose(supplement.dose, supplement.note)})</li>
+                ))}
+            </ul>
+        </section>
     </div>
 </section>

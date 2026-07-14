@@ -63,6 +63,7 @@
 
 #workout-container,
 .content-panel,
+#gainz-calculator,
 #supp-stack,
 footer {
     width: min(100%, var(--content-width));
@@ -244,20 +245,30 @@ details[open] .info-trigger {
     display: grid;
     gap: var(--space-2);
     margin-top: var(--space-4);
+    padding: 0;
+    list-style: none;
+}
+
+.supp-grid li {
+    display: flex;
 }
 
 .supp-btn {
     display: flex;
+    width: 100%;
     min-height: 3rem;
     padding: var(--space-2) var(--space-3);
     align-items: center;
     justify-content: center;
     border: 2px solid var(--color-cyan);
-    border-radius: var(--radius-small);
-    color: var(--color-cyan);
+    border-radius: 999px;
+    background: var(--color-panel-raised);
+    color: var(--color-text);
     font-weight: 900;
+    text-align: center;
     text-decoration: none;
     text-transform: uppercase;
+    box-shadow: 0 0 0.6rem rgb(0 255 255 / 30%);
 }
 
 a.supp-btn:hover {
@@ -266,9 +277,47 @@ a.supp-btn:hover {
     box-shadow: 0 0 0.9rem var(--color-cyan);
 }
 
-.supp-btn-placeholder {
-    border-color: #5a7b7b;
-    color: #a4c7c7;
+.deploy-title {
+    margin: var(--space-5) 0 var(--space-4);
+    color: var(--color-pink);
+    font-size: clamp(1.25rem, 5vw, 1.7rem);
+    text-align: center;
+    text-shadow: 0 0 0.5rem var(--color-pink);
+}
+
+.deploy-grid {
+    display: grid;
+    gap: var(--space-3);
+    text-align: left;
+}
+
+.deploy-col {
+    padding: var(--space-4);
+    border: 1px solid #444444;
+    border-top: 0.25rem solid var(--color-pink);
+    border-radius: var(--radius-large);
+    background: var(--color-panel);
+}
+
+.deploy-heading {
+    margin: 0 0 var(--space-3);
+    color: var(--color-pink);
+    font-size: clamp(1.05rem, 4vw, 1.3rem);
+    text-shadow: 0 0 0.4rem var(--color-pink);
+}
+
+.deploy-icon {
+    text-shadow: none;
+}
+
+.deploy-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: var(--color-text);
+}
+
+.deploy-list li + li {
+    margin-top: var(--space-2);
 }
 
 footer {
@@ -562,6 +611,10 @@ footer {
     }
 
     .supp-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .deploy-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
